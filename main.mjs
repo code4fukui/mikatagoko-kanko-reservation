@@ -2,8 +2,6 @@
 import { CSV } from "https://js.sabae.cc/CSV.js";
 import { Day } from "https://js.sabae.cc/DateTime.js";
 import { TimeZone } from "https://code4fukui.github.io/day-es/DateTime.js";
-import { initC3 } from "https://code4fukui.github.io/c3-es/c3-es.js";
-const c3 = initC3(window);
 
 fromDate.setAttribute("value", new Day().toString());
 toDate.setAttribute("value", new Day().dayAfter(89).toString());
