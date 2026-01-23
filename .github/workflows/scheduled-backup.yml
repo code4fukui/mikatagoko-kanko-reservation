@@ -28,3 +28,18 @@ jobs:
           git add .
           git commit -m 'update data' && git push ${REPO} HEAD:${{github.event.pull_request.head.ref}} || true
           git push
+      - name: Notify Slack on failure
+        if: failure()
+        run: |
+          curl -X POST -H 'Content-type: application/json' \
+          --data '{
+            "attachments": [
+              {
+                "color": "#E01E5A",
+                "title": "【三方五湖エリア】データ更新に失敗しました。",
+                "title_link": "${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}",
+                "text": "GitHub Actionsの実行中にエラーが発生しました。至急ログを確認してください。"
+              }
+            ]
+          }' \
+          ${{ secrets.SLACK_WEBHOOK }}
