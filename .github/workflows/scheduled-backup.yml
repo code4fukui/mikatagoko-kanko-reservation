@@ -31,7 +31,7 @@ jobs:
       - name: Notify Slack on failure
         if: failure()
         run: |
-          curl -X POST -H 'Content-type: application/json' \
+          curl --fail -X POST -H 'Content-type: application/json' \
           --data '{
             "attachments": [
               {
