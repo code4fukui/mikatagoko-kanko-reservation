@@ -63,7 +63,7 @@ To run this project locally, follow these steps:
 3.  **Run the update script:**
     This command fetches the latest data and generates the necessary CSV files.
     ```bash
-    deno run -A --unstable update.deno.ts
+    deno run -A --unstable update.deno.ts [KEY] [CERT]
     ```
 
 4.  **View in Browser:**

@@ -5,17 +5,26 @@ const dateStr = `${now.getFullYear()}-${(now.getMonth() + 1).toString().padStart
 const latestHotelUrl = Deno.env.get("LATEST_HOTEL_URL");
 const latestReservationUrl = Deno.env.get("LATEST_RESERVATION_URL");
 
+const key = await Deno.readTextFile(Deno.args[0]);
+const cert = await Deno.readTextFile(Deno.args[1]);
+const client = Deno.createHttpClient({ key, cert });
+
+const opt = {
+  client,
+  method: "GET",
+};
+
 if (!latestHotelUrl || !latestReservationUrl) {
   throw new Error("Environment variables LATEST_HOTEL_URL and LATEST_RESERVATION_URL must be set.");
 }
 
-const latestHotel = await (await fetch(latestHotelUrl)).json();
+const latestHotel = await (await fetch(latestHotelUrl,opt)).json();
 Deno.writeTextFileSync(
   "latest_hotel.csv",
   csv.stringify(latestHotel, {columns: Object.keys(latestHotel[0]), headers: true})
 )
 
-const latestReservation = await (await fetch(latestReservationUrl)).json() as {date_visit: string}[];
+const latestReservation = await (await fetch(latestReservationUrl,opt)).json() as {date_visit: string}[];
 Deno.writeTextFileSync(
   "latest_rsv_sum.csv",
   csv.stringify(latestReservation, {columns: Object.keys(latestReservation[0]), headers: true})

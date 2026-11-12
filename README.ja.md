@@ -58,7 +58,7 @@
 3.  **更新スクリプトを実行する:**
     このコマンドで最新のデータを取得し、必要なCSVファイルを生成します。
     ```bash
-    deno run -A --unstable update.deno.ts
+    deno run -A --unstable update.deno.ts [KEY] [CERT]
     ```
 
 4.  **ブラウザで表示する:**
